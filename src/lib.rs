@@ -42,6 +42,12 @@ pub struct UserName(pub Name);
 )]
 pub struct InscriptionDate(pub Date);
 
+impl Default for InscriptionDate {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl InscriptionDate {
     pub fn new() -> Self {
         InscriptionDate(Date(Zoned::now()))
@@ -62,7 +68,7 @@ pub struct User {
     account_state: AccountState,
 }
 
-impl<'ord> User {
+impl User {
     pub fn new(first_name: UserName, last_name: UserName, email: Email) -> Self {
         let id = Id::new();
         let inscription_date = InscriptionDate::new();
@@ -238,7 +244,7 @@ pub struct Order {
     pub id: Id,
 }
 
-impl<'a> Order {
+impl Order {
     pub fn new(from_user: Id, product: Product) -> Self {
         Self {
             date: OrderDate(Date(Zoned::now())),
@@ -312,6 +318,12 @@ impl AsRef<str> for Name {
     Deserialize,
 )]
 pub struct Id(pub Uuid);
+
+impl Default for Id {
+    fn default() -> Self {
+        Self::new()
+    }
+}
 
 impl Id {
     pub fn new() -> Self {

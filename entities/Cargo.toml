@@ -1,0 +1,14 @@
+[package]
+name = "entities"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+derive_more = { version = "1.0.0", features = ["full"] }
+itertools = "0.14.0"
+thiserror = "2.0.11"
+uuid = { version = "1.12.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
+
+[dev-dependencies]
+rtest = "0.2.2"

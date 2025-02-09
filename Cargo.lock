@@ -3,6 +3,10 @@
 version = 4
 
 [[package]]
+name = "BE"
+version = "0.1.0"
+
+[[package]]
 name = "addr2line"
 version = "0.24.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -560,6 +564,10 @@ dependencies = [
  "ryu",
  "serde",
 ]
+
+[[package]]
+name = "server"
+version = "0.1.0"
 
 [[package]]
 name = "sharded-slab"

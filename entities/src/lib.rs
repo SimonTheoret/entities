@@ -5,7 +5,6 @@ mod user;
 use derive_more::{Deref, DerefMut, Display, Into};
 use std::error::Error;
 use uuid::Uuid;
-//test
 
 pub use crate::user::User;
 

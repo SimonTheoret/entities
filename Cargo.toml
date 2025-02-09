@@ -1,14 +1,29 @@
 [package]
-name = "entities"
+name = "BE"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[workspace]
+members = ["entities", "server"]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
-
-[dependencies]
-derive_more = { version = "1.0.0", features = ["full"] }
-itertools = "0.14.0"
-thiserror = "2.0.11"
-uuid = { version = "1.12.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
+authors = ["Simon Théorêt <simonteoret@hotmail.com"]
+repository = "https://github.com/SimonTheoret/entities"
+# rust-version = "1.80.1" #find MRSV
 
 
-[dev-dependencies]
-rtest = "0.2.2"
+
+
+
+# [lib]
+# name = "entities"
+# path = "entities/src"
+
+[[bin]]
+name = "server"
+path = "server/src/main.rs"
+

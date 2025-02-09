@@ -373,12 +373,19 @@ where
     Self: Sized,
 {
     type Err: std::error::Error;
-    fn from_message(message: M) -> Result<Self, Self::Err>;
+    fn try_from_message(message: M) -> Result<Self, Self::Err>;
+
+    unsafe fn from_message(message: M) -> Self {
+        Self::try_from_message(message).unwrap_unchecked()
+    }
 }
 
 impl<T, M: Into<T>> Message<M> for T {
     type Err = NoError;
-    fn from_message(message: M) -> Result<Self, Self::Err> {
+    fn try_from_message(message: M) -> Result<Self, Self::Err> {
         Ok(message.into())
+    }
+    unsafe fn from_message(message: M) -> Self {
+        message.into()
     }
 }

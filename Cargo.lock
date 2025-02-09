@@ -616,6 +616,9 @@ dependencies = [
 [[package]]
 name = "server"
 version = "0.1.0"
+dependencies = [
+ "entities",
+]
 
 [[package]]
 name = "sharded-slab"

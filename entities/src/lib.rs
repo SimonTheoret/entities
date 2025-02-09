@@ -1,6 +1,7 @@
 use derive_more::{Deref, DerefMut, Display, Into};
 use jiff::Zoned;
 use serde::{Deserialize, Serialize};
+use std::error::Error;
 use uuid::Uuid;
 
 /// What is the state of the Account.
@@ -64,7 +65,7 @@ pub struct User {
     /// This attribute is not displayed with the `Display` trait.
     pub order_list: Vec<Order>,
     pub inscription_date: InscriptionDate,
-    /// This attribute is not directly accessible. That's due to
+    /// This attribute is not directly accessible.
     account_state: AccountState,
 }
 
@@ -347,3 +348,37 @@ impl Id {
     Deserialize,
 )]
 pub struct Date(pub Zoned);
+
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone)]
+pub struct NoError;
+impl Display for NoError {
+    #[allow(unused_variables)]
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        unreachable!("Unreacheable error!")
+    }
+}
+impl Error for NoError {}
+
+pub trait Persistent
+where
+    Self: Sized,
+{
+    type Err: std::error::Error;
+    fn save<T>(&self, ctx: T) -> Result<(), Self::Err>;
+    fn load<T>(ctx: T) -> Result<Self, Self::Err>;
+}
+
+pub trait Message<M>
+where
+    Self: Sized,
+{
+    type Err: std::error::Error;
+    fn from_message(message: M) -> Result<Self, Self::Err>;
+}
+
+impl<T, M: Into<T>> Message<M> for T {
+    type Err = NoError;
+    fn from_message(message: M) -> Result<Self, Self::Err> {
+        Ok(message.into())
+    }
+}
